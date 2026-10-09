@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#081117"
+    android:keepScreenOn="true">
+
+    <!-- Active and Preload WebViews for seamless cross-fading -->
+    <WebView
+        android:id="@+id/webViewA"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#081117" />
+
+    <WebView
+        android:id="@+id/webViewB"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#081117"
+        android:alpha="0" />
+
+    <!-- Transient TV HUD Pill (fades in/out on remote actions) -->
+    <LinearLayout
+        android:id="@+id/hudPill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:background="#E60D1A24"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:orientation="horizontal"
+        android:alpha="0"
+        android:elevation="10dp">
+
+        <TextView
+            android:id="@+id/hudTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dashboard 1 / 10"
+            android:textColor="#C1F279"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/hudStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="· 60s rotation"
+            android:textColor="#94D8F2"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- TV Remote Quick Settings Overlay (Toggled via MENU button or long-press SELECT) -->
+    <FrameLayout
+        android:id="@+id/settingsOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#D9081117"
+        android:visibility="gone"
+        android:elevation="20dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="540dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#16222F"
+            android:padding="32dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="△ ARCHITAINMENT DASHBOARDS"
+                android:textColor="#C1F279"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="TV &amp; Display Settings"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtCurrentTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Screen Assignment: TV 1 (tv1)"
+                android:textColor="#C1F279"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtCurrentSource"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Source: Managed via Remote Admin (192.168.0.194)"
+                android:textColor="#A0B0BC"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/txtCurrentInterval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Interval: Controlled by Central Playlist"
+                android:textColor="#A0B0BC"
+                android:textSize="13sp" />
+
+            <!-- Remote-friendly navigation buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnToggleTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Assign This Firestick: [ TV 1 ]"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#3B82F6"
+                    android:textStyle="bold"
+                    android:focusable="true" />
+
+                <Button
+                    android:id="@+id/btnToggleSource"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Mode: Live Admin Managed"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#243447"
+                    android:focusable="true" />
+
+                <Button
+                    android:id="@+id/btnReload"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Reload / Fetch Latest Admin Playlist"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#243447"
+                    android:focusable="true" />
+
+                <!-- GitHub App Update Section -->
+                <TextView
+                    android:id="@+id/txtAppVersion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="App Version: v1.1 · GitHub: lunnysteve/tvapps"
+                    android:textColor="#94D8F2"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/txtUpdateStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text=""
+                    android:textColor="#C1F279"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnCheckUpdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Check for GitHub Updates"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#1E3A5F"
+                    android:focusable="true" />
+
+                <Button
+                    android:id="@+id/btnInstallUpdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Download &amp; Install Update"
+                    android:textColor="#081117"
+                    android:backgroundTint="#38BDF8"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    android:focusable="true" />
+
+                <Button
+                    android:id="@+id/btnCloseSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Close &amp; Resume Display"
+                    android:textColor="#081117"
+                    android:backgroundTint="#C1F279"
+                    android:textStyle="bold"
+                    android:focusable="true" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Remote controls: Menu to open settings · Back twice to exit"
+                android:textColor="#6C7F8C"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+</FrameLayout>

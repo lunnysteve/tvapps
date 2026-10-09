@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Goods in — Architainment</title>
+  <link rel="stylesheet" href="_shared/dispatch-loading.css">
+  <script src="_shared/dispatch-history.js" defer></script><script src="_shared/receipt-history.js" defer></script>
+  <style>
+    .heading{gap:24px}
+    .heading>div:first-child{flex:1;min-width:0}
+    .pulse{display:flex;flex-direction:column;gap:6px;width:min(420px,32vw);flex-shrink:0}
+    .pulse-meta{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--muted)}
+    .pulse-meta strong{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+    .pulse-bars{display:grid;grid-template-columns:repeat(24,1fr);align-items:end;gap:3px;height:58px;border-bottom:1px solid var(--line)}
+    .pulse-bars i{display:block;background:#c1f27940;border-radius:3px 3px 0 0;min-height:2px;transition:height .6s ease}
+    .pulse-bars i.has{background:var(--accent)}
+    .pulse-bars i.now{outline:1px solid #c1f279aa;outline-offset:1px}
+    .pulse-axis{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+    .total.bump{animation:bump .9s ease}
+    @keyframes bump{30%{transform:scale(1.08);box-shadow:0 0 0 10px #c1f27933}}
+    .job-caption.is-new{animation:fresh 2.4s ease-out}
+    .job-caption.is-new .eyebrow{color:#ffd36b}
+    @keyframes fresh{0%{background:#c1f27933}100%{background:transparent}}
+    .job-time span+strong+span{margin-top:4px}
+    .journey span{position:relative;padding-bottom:6px}
+    .journey span::after{content:'';position:absolute;left:0;bottom:0;height:2px;width:var(--p,0%);background:var(--accent);border-radius:2px}
+    .history-row time small{display:block;font-size:13px;color:var(--muted);text-align:right}
+    .history-row.is-new strong::after{content:'NEW';margin-left:10px;font-size:11px;letter-spacing:.12em;vertical-align:middle;color:#182b20;background:#ffd36b;padding:2px 6px;border-radius:4px}
+    .dispatch-screen.is-stale .loading-scene{filter:saturate(.35) brightness(.8)}
+    @media(max-height:849px) and (min-width:1100px){.pulse-bars{height:40px}.pulse-meta{font-size:12px}}
+    @media(max-width:1099px){.heading{flex-wrap:wrap}.pulse{width:100%;order:3}}
+    @media(prefers-reduced-motion:reduce){.total.bump,.job-caption.is-new{animation:none}}
+    .loading-scene{position:relative;overflow:hidden}
+    .loading-scene canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+    .idle-sign{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;pointer-events:none}
+    .idle-sign strong{color:var(--accent);font-size:clamp(20px,1.8vw,30px);font-weight:500}
+    .idle-sign span{color:var(--muted);font-size:clamp(14px,1.1vw,18px)}
+  </style>
+  <script src="_shared/signage-runtime.js"></script>
+</head>
+<body>
+  <div class="dispatch-screen">
+    <header class="mast"><div class="brand"><span class="brand-mark">△</span> ARCHITAINMENT <span>WAREHOUSE / GOODS IN</span></div><time id="clock"></time></header>
+    <div class="heading"><div><p class="eyebrow">ARRIVED. UNLOADED. RECEIVED.</p><h1>Good things coming in.</h1><p class="subtitle">Received deliveries · rolling last 24 hours</p></div><div class="pulse" aria-label="Receipts per hour, last 24 hours">
+        <div class="pulse-meta"><span>Last in <strong id="last-in">—</strong></span><span>Busiest <strong id="busiest">—</strong></span></div>
+        <div class="pulse-bars" id="pulse-bars"></div>
+        <div class="pulse-axis"><span id="axis-start">—</span><span>per hour</span><span>now</span></div>
+      </div><div class="total" id="total"><strong id="count">—</strong><span id="count-label">receipts in view</span></div></div>
+    <div id="source-banner" class="source-banner" role="status">Connecting to receipt history…</div>
+    <main class="dispatch-layout">
+      <section class="loading-panel" aria-label="Animated receipt replay">
+        <div class="scene-heading"><span class="replay-label" id="replay-label">RECEIPT REPLAY</span><span id="phase">Waiting for receipt data</span></div>
+        <div class="loading-scene" id="scene3d" role="img" aria-label="Illustration of a forklift unloading received goods from a lorry. Illustrated replay, not live vehicle tracking."><div id="idle-sign" class="idle-sign"><strong>Ready for the next delivery.</strong><span>Received deliveries will appear automatically.</span></div></div>
+        <div class="job-caption" id="job-caption"><div><span class="eyebrow" id="job-kicker">GOODS-IN RECEIVING</span><h2 id="job-reference">Ready when you are.</h2><p id="job-customer">Waiting for verified incoming receipts.</p><p id="job-project"></p></div><div class="job-time"><span>Received</span><strong id="job-time">—</strong><span id="job-ago"></span></div></div>
+        <div class="journey"><span id="step-collect">01 · Arriving</span><span id="step-load">02 · Unloading</span><span id="step-away">03 · Received</span></div>
+      </section>
+      <aside class="history-panel"><header><p class="eyebrow">LAST 24 HOURS</p><h2>Arrived. Checked in.</h2><p id="window-label">Times shown in Europe/London</p></header><div class="history-viewport" id="history-viewport"><div id="history-list" class="history-list"></div><div id="history-empty" class="history-empty">Waiting for receipt history…</div></div><footer><span class="list-dot"></span> <span id="history-note">Updates automatically</span></footer></aside>
+    </main>
+    <footer class="footer"><span>Illustrated receipt replay · not live vehicle tracking</span><span id="source-status">Connecting</span></footer>
+  </div>
+  <script src="_shared/replay-artwork.js"></script>
+  <script src="_shared/dashboard-data.js"></script>
+  <script src="_shared/tv-signage/data.js"></script>
+  <script src="_shared/warehouse-weather.js"></script>
+  <script src="_shared/replay-2d.js"></script>
+  <script type="module" src="_shared/goods-in-24hrs-scene.js"></script>
+</body>
+</html>

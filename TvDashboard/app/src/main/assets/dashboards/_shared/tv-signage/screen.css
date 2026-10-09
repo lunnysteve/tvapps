@@ -1,0 +1,149 @@
+:root{color-scheme:dark;--bg:#081117;--panel:#1b2e39;--line:#49616e;--muted:#bdccd4;--ink:#f1f5ef;--accent:#c1f279;--amber:#ffd18b;--cyan:#94d8f2;font-family:'Segoe UI',Arial,sans-serif;font-synthesis:none}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--ink)}
+body{display:grid;place-items:center}
+#screen{width:1920px;height:1080px;position:relative;flex:none;transform:scale(var(--scale,1));transform-origin:center;display:grid;grid-template-rows:56px 126px 1fr 40px;gap:20px;padding:32px 42px 22px;background:radial-gradient(ellipse at 90% 15%,#c1f2790c,transparent 45%),radial-gradient(ellipse at 0 90%,#94d8f20a,transparent 50%),var(--bg)}
+h1,h2,h3,p{margin:0}
+header,footer,.heading,.brand,.header-time,.panel-head{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{justify-content:flex-start;font-size:25px;font-weight:800;letter-spacing:.03em}
+.brand svg{width:42px;height:42px;color:var(--accent)}
+.channel{font-size:20px;color:var(--muted);border-left:1px solid var(--line);padding-left:22px;font-weight:600;text-transform:uppercase;letter-spacing:.12em}
+.header-time{font-size:24px;font-variant-numeric:tabular-nums}
+.header-time time{font-weight:800;font-size:30px}
+.heading{align-items:flex-start}
+.eyebrow{color:var(--accent);font-size:18px;text-transform:uppercase;letter-spacing:.18em;font-weight:800;margin-bottom:9px}
+h1{font-size:76px;line-height:1;letter-spacing:-.055em;font-weight:900}
+.period{align-self:center;text-align:right;font-size:25px;color:var(--muted);line-height:1.45}
+.period b{color:var(--ink);display:block;font-size:28px}
+main{min-height:0;display:grid;gap:22px}
+.panel{background:linear-gradient(135deg,#1b2e39e6,#10212bea);border:1px solid #49616eaa;border-radius:24px;overflow:hidden;min-width:0;min-height:0;position:relative}
+.scene{position:relative;overflow:hidden;background:radial-gradient(ellipse at center,#29434b80,transparent 75%);min-width:0;min-height:0}
+.scene canvas{width:100%;height:100%;display:block}
+.scene-caption{position:absolute;bottom:18px;left:24px;color:var(--muted);font-size:17px;text-transform:uppercase;letter-spacing:.16em;pointer-events:none}
+.scene-error{position:absolute;inset:0;display:grid;place-content:center;text-align:center;color:var(--muted);font-size:26px;padding:45px;background:repeating-radial-gradient(ellipse at center,transparent 0 45px,#c1f2790b 46px 47px,transparent 48px 90px)}
+.scene-error small{font-size:18px;margin-top:12px}
+.scene-error[hidden]{display:none}
+.tag{display:inline-flex;align-items:center;gap:8px;background:#c1f27919;border:1px solid #c1f27955;border-radius:7px;color:var(--accent);padding:7px 12px;font-size:18px;line-height:1.1;font-weight:800;white-space:nowrap}
+.tag.amber{color:var(--amber);border-color:#ffd18b55;background:#ffd18b10}
+.tag.cyan{color:var(--cyan);border-color:#94d8f255;background:#94d8f210}
+.tag.grey{color:var(--muted);border-color:var(--line);background:#ffffff08}
+.status{color:var(--accent);font-weight:700;white-space:nowrap}
+.status.stale{color:var(--amber)}
+footer{font-size:18px;color:var(--muted);border-top:1px solid #49616e66;padding-top:14px}
+footer>span:first-child{max-width:1270px}
+.empty{height:100%;display:flex;flex-direction:column;justify-content:center;padding:35px;color:var(--muted);font-size:25px;line-height:1.5}
+.empty strong{font-size:38px;line-height:1.2;color:var(--ink);margin-bottom:16px}
+.number{font-variant-numeric:tabular-nums;letter-spacing:-.07em;font-weight:900;line-height:.95}
+.logistics{grid-template-rows:260px 1fr}
+.process-strip{display:grid;grid-template-columns:1fr 1.45fr 1fr}
+.process-stat{padding:28px 34px;display:flex;flex-direction:column;justify-content:center}
+.process-stat:first-child{background:var(--accent);color:#16271c}
+.process-stat:last-child{border-left:1px solid var(--line)}
+.process-stat .number{font-size:125px}
+.process-stat h2{font-size:26px;letter-spacing:-.03em;margin-bottom:8px}
+.process-stat p{font-size:19px;margin-top:14px;opacity:.85}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:22px;min-height:0}
+.list-panel{display:flex;flex-direction:column}
+.panel-head{padding:21px 26px;border-bottom:1px solid var(--line);flex:none}
+.panel-head h2{font-size:31px;letter-spacing:-.035em}
+.panel-head .page{font-size:18px;color:var(--muted)}
+.records{flex:1;min-height:0;display:grid;grid-template-rows:repeat(3,minmax(0,1fr));padding:0 24px}
+.record{padding:17px 0;border-bottom:1px solid #49616e77;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:20px;align-content:center;gap:6px 20px;min-height:0}
+.record:last-child{border-bottom:0}
+.record h3{font-size:31px;font-weight:850;letter-spacing:-.02em;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.record .partner{font-size:25px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.record .detail{font-size:18px;color:var(--muted);grid-column:1/-1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.record time{font-size:23px;font-weight:750;align-self:center;text-align:right}
+.record .tag{justify-self:end;align-self:center}
+.progress-line{height:3px;position:absolute;bottom:0;left:0;background:var(--accent);width:100%;transform-origin:left}
+.weather-main{grid-template-columns:1.05fr 1fr;grid-template-rows:1fr 242px}
+.weather-current{padding:32px 40px;display:flex;flex-direction:column;justify-content:space-between}
+.location{font-size:25px;color:var(--muted)}
+.temperature{font-size:205px;line-height:.95;margin:0;color:var(--accent)}
+.temperature small{font-size:85px;vertical-align:top;line-height:1.5;letter-spacing:-.06em}
+.condition{font-size:49px;letter-spacing:-.035em;font-weight:800}
+.feels{font-size:25px;color:var(--muted);margin-top:8px}
+.weather-facts{display:grid;grid-template-columns:1fr 1fr 1.15fr;border-top:1px solid var(--line);padding-top:20px;gap:20px}
+.weather-facts b{display:block;font-size:38px}
+.weather-facts span{display:block;font-size:18px;color:var(--muted);margin-top:5px}
+.weather-scene{position:relative}
+.scene-top{position:absolute;left:28px;right:28px;top:25px;z-index:1;display:flex;justify-content:space-between;font-size:20px;color:var(--muted)}
+.sun-data{position:absolute;bottom:25px;left:28px;right:28px;display:flex;justify-content:space-between;color:var(--muted);font-size:21px}
+.sun-data b{font-size:29px;color:var(--ink);padding-left:12px}
+.forecast{grid-column:1/-1;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px}
+.forecast-day{padding:20px 18px;display:flex;flex-direction:column;justify-content:space-between}
+.forecast-day:first-child{border-color:#c1f27999}
+.forecast-day h3{font-size:25px;display:flex;justify-content:space-between;align-items:center}
+.forecast-day h3 span{font-size:16px;color:var(--muted)}
+.forecast-day svg{width:66px;height:66px}
+.forecast-center{display:flex;align-items:center;justify-content:space-between}
+.forecast-temp{font-size:35px;font-weight:850}
+.forecast-temp small{font-size:24px;color:var(--muted);display:block}
+.forecast-day p{font-size:21px;font-weight:700;white-space:nowrap}
+.forecast-day>small{font-size:18px;color:var(--muted)}
+.clock-main{grid-template-columns:1.35fr 1fr;grid-template-rows:1fr 145px}
+.clock-panel{padding:45px 36px;display:flex;flex-direction:column;justify-content:center}
+.clock-label{font-size:22px;color:var(--accent);letter-spacing:.18em;text-transform:uppercase;font-weight:800}
+.clock-digits{font-size:182px;letter-spacing:-.065em;font-weight:900;line-height:1.2;font-variant-numeric:tabular-nums;white-space:nowrap}
+.clock-digits .seconds{color:var(--accent);font-size:.58em}
+.clock-day{font-size:65px;font-weight:850;letter-spacing:-.04em}
+.clock-date{font-size:38px;color:var(--muted);margin-top:10px}
+.clock-bottom{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr 1fr 1.5fr;align-items:center;padding:23px 35px;gap:30px}
+.clock-bottom>div{border-right:1px solid var(--line);padding-right:25px}
+.clock-bottom>div:last-child{border:0}
+.clock-bottom small{display:block;color:var(--muted);font-size:20px;margin-bottom:6px}
+.clock-bottom strong{font-size:38px;letter-spacing:-.03em}
+.day-track{height:7px;background:#49616e80;border-radius:8px;margin-top:12px;position:relative}
+.day-track i{position:absolute;left:0;top:0;bottom:0;max-width:100%;background:var(--accent);border-radius:8px}
+.subscriptions-main{grid-template-columns:540px 1fr;grid-template-rows:1fr}
+.subscription-hero{display:grid;grid-template-rows:auto 1fr 95px}
+.subscription-total{padding:30px 34px;background:var(--accent);color:#16271c}
+.subscription-total h2{font-size:28px;line-height:1.2;max-width:390px}
+.subscription-total .number{font-size:150px;margin:12px 0}
+.subscription-total p{font-size:19px}
+.subscription-breakdown{display:flex;align-items:center;justify-content:space-around;border-top:1px solid var(--line)}
+.subscription-breakdown strong{font-size:37px;display:block}
+.subscription-breakdown span{font-size:18px;color:var(--muted)}
+.renewals-panel{display:flex;flex-direction:column}
+.renewals-top{padding:27px 30px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.renewals-top h2{font-size:39px;letter-spacing:-.04em}
+.renewals-top p{font-size:22px;color:var(--muted);margin-top:9px}
+.renewals-top .number{font-size:82px;color:var(--accent)}
+.renewal-rows{display:grid;grid-template-rows:repeat(4,minmax(0,1fr));flex:1;min-height:0;padding:0 28px}
+.renewal{display:grid;grid-template-columns:minmax(0,1fr) 195px;align-content:center;gap:8px 25px;border-bottom:1px solid #49616e77;min-height:0;padding:12px 0}
+.renewal:last-child{border:0}
+.renewal h3{font-size:31px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.025em}
+.renewal p{font-size:23px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}
+.renewal time{font-size:29px;font-weight:850;text-align:right}
+.renewal .basis{font-size:17px;text-align:right;color:var(--amber)}
+.renewal .meta{grid-column:1/-1;display:flex;justify-content:space-between;gap:18px;font-size:19px;color:var(--muted)}
+.renewal .meta span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.renewals-foot{padding:18px 28px;border-top:1px solid var(--line);font-size:18px;color:var(--muted);display:flex;justify-content:space-between;gap:20px}
+.is-stale .scene{filter:saturate(.55)}
+
+:root .weather-current{padding:24px 36px}
+:root .temperature{font-size:185px}
+
+:root #screen{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(var(--scale,1))}
+
+:root .clock-bottom{padding:16px 35px}
+
+:root .record{padding:9px 0;grid-template-rows:36px 30px 22px;gap:4px 20px}
+
+/* Weather icons: layered gradients with slow, quiet motion. */
+.forecast-day svg.wx-icon{width:96px;height:96px;margin:-10px 0 -10px -8px}
+.wx-rays{animation:wx-spin 60s linear infinite}
+.wx-sun,.wx-moon{animation:wx-glow 6s ease-in-out infinite}
+.wx-fall>*{animation:wx-fall 1.8s ease-in infinite}
+.wx-bolt{animation:wx-flash 5s steps(1) infinite}
+.wx-fog path{animation:wx-drift 7s ease-in-out infinite alternate}
+.wx-fog path:nth-child(2){animation-delay:-2.5s}
+@keyframes wx-spin{to{transform:rotate(1turn)}}
+@keyframes wx-glow{50%{opacity:.88}}
+@keyframes wx-fall{0%{transform:translateY(-3px);opacity:0}25%{opacity:1}100%{transform:translateY(5px);opacity:0}}
+@keyframes wx-flash{0%,86%,92%{opacity:1}88%,95%{opacity:.25}}
+@keyframes wx-drift{to{transform:translateX(4px)}}
+@media(prefers-reduced-motion:reduce){.wx-rays,.wx-sun,.wx-moon,.wx-fall>*,.wx-bolt,.wx-fog path{animation:none}}
+
+/* The TVs are low-power Fire TV sticks: no looping decoration. */
+.wx-rays,.wx-sun,.wx-moon,.wx-fall>*,.wx-bolt,.wx-fog path{animation:none}

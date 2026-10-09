@@ -1,0 +1,17 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+*.apk.idsig
+
+# Gradle build cache and outputs inside subprojects
+TvDashboard/.gradle/
+TvDashboard/build/
+TvDashboard/*/build/
+TvDashboard/.idea/
+TvDashboard/local.properties

@@ -1,0 +1,351 @@
+/* Shared base styles for TV dashboard pages (Architainment theme).
+   Reset, colour variables, background layer, and header/footer shell —
+   identical across every dashboard. Page-specific layout/content CSS
+   stays inline in each page. */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Core Theme Colors matching architainment.co.uk (Premium Deep Dark Theme) */
+    --bg-base: #030712;
+    /* Deep Black-Slate */
+    --panel-bg: rgba(15, 23, 42, 0.8);
+    /* Deep Glass Slate */
+    --panel-border: rgba(16, 185, 129, 0.2);
+    --card-border-opacity: 0.35;
+
+    /* Brand / Accent Colors (Architainment Electric Emerald) */
+    --accent: #10B981;
+    --accent-glow: rgba(16, 185, 129, 0.35);
+    --accent-dim: rgba(16, 185, 129, 0.08);
+
+    /* High Contrast Solid State Background Colors (Saturated for distance viewing) */
+    --wait: #dc2626;
+    /* Vibrant Solid Red (Delayed / Late) */
+    --pick: #ea580c;
+    /* Vibrant Solid Orange (Partially Received) */
+    --ready: #7c3aed;
+    /* Vibrant Solid Purple (Incoming Expected) */
+    --ship: #059669;
+    /* Vibrant Solid Emerald (Fully Received) */
+
+    /* Typography */
+    --text-main: #f9fafb;
+    --text-muted: #f3f4f6;
+    --text-dim: #9ca3af;
+
+    --FF-Head: 'Outfit', sans-serif;
+    --FF-Body: 'Inter', sans-serif;
+    --r: 16px;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    font-family: var(--FF-Body);
+    -webkit-font-smoothing: antialiased;
+}
+
+.bg-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(16, 185, 129, 0.04) 1.5px, transparent 1.5px);
+    background-size: 35px 30px;
+}
+
+#app {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 12px;
+    gap: 12px;
+}
+
+/* ── SLEEK COMPACT HEADER ── */
+header {
+    flex-shrink: 0;
+    height: 60px;
+    /* Highly compact */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--r);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.hd-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hd-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent-dim), transparent);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.hd-titles {
+    display: flex;
+    flex-direction: column;
+}
+
+.hd-name {
+    font-family: var(--FF-Head);
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+    color: var(--text-main);
+}
+
+.hd-name em {
+    color: var(--accent);
+    font-style: normal;
+}
+
+.hd-sub {
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+}
+
+/* Real-Time State Counters (Unified Height matching KPI blocks) */
+.status-counters {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 15px;
+    margin-right: auto;
+}
+
+.cnt-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0 10px;
+    height: 38px;
+    /* Strict unified height */
+    border-radius: 10px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: var(--text-muted);
+}
+
+.cnt-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.cnt-wait .cnt-dot {
+    background-color: var(--wait);
+    box-shadow: 0 0 6px var(--wait);
+}
+
+.cnt-pick .cnt-dot {
+    background-color: var(--pick);
+    box-shadow: 0 0 6px var(--pick);
+}
+
+.cnt-ready .cnt-dot {
+    background-color: var(--ready);
+    box-shadow: 0 0 6px var(--ready);
+}
+
+.cnt-ship .cnt-dot {
+    background-color: var(--ship);
+    box-shadow: 0 0 6px var(--ship);
+}
+
+/* Unified Date/Week-range wrapper */
+.hd-centre {
+    display: flex;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 10px;
+    padding: 0 12px;
+    height: 38px;
+    /* Strict unified height */
+    margin-right: 10px;
+}
+
+#week-range {
+    min-width: 160px;
+    text-align: center;
+    font-family: var(--FF-Head);
+    font-size: 12px;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-main);
+}
+
+.hd-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Standard KPI Widget (Unified Height matching Counters) */
+.kpi-widget {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    padding: 0 10px;
+    height: 38px;
+    /* Strict unified height */
+    min-width: 100px;
+}
+
+.kpi-val {
+    font-family: var(--FF-Head);
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+.kpi-lbl,
+.wx-desc,
+.date-lbl {
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 1px;
+}
+
+/* Weather Layout */
+.wx-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+}
+
+.wx-icon {
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+}
+
+.wx-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.wx-temp {
+    font-family: var(--FF-Head);
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--text-main);
+}
+
+#hd-time {
+    font-family: var(--FF-Head);
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--accent);
+}
+
+.live-pill {
+    display: flex;
+    align-items: center;
+    padding: 0 2px;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    justify-content: center;
+}
+
+.live-pip {
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50% !important;
+    background: #10b981;
+    box-shadow: 0 0 8px #10b981;
+    border: none !important;
+}
+
+/* Text Marquee / Auto-Ticker */
+.tw {
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.tw.ticking .ti {
+    display: inline-block;
+    white-space: nowrap;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* ── FOOTER ── */
+footer {
+    flex-shrink: 0;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+}
+
+.ft-brand {
+    color: var(--accent);
+    font-family: var(--FF-Head);
+    font-size: 14px;
+    font-weight: 950;
+    letter-spacing: 0.15em;
+}

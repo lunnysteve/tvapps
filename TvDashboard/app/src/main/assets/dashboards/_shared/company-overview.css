@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+/* Company overview. One 1920×1080 stage, scaled to the display, in the studio palette. */
+:root { color-scheme: dark; --bg: #081117; --panel: #1b2e39; --ink: #f1f5ef; --muted: #bdccd4; --line: #49616e; --bad: #ff9394; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--bg); color: var(--ink); font-family: 'DM Sans', 'Segoe UI', Arial, sans-serif; }
+.stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; overflow: hidden; background: radial-gradient(ellipse 60% 55% at 50% 50%, #12303a 0%, transparent 70%), radial-gradient(ellipse at 85% -20%, #c1f27914, transparent 55%); }
+.stage:before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(#ffffff10 1px, transparent 1px); background-size: 32px 32px; mask-image: radial-gradient(ellipse 55% 60% at 50% 50%, #000 20%, transparent 75%); pointer-events: none; }
+h1, strong, b, .ov-brand, .lane-verb, time { font-family: 'Outfit', 'Segoe UI', Arial, sans-serif; }
+
+.ov-head { position: absolute; left: 36px; right: 36px; top: 22px; height: 100px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; }
+.ov-brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 700; letter-spacing: .1em; }
+.ov-brand svg { width: 34px; height: 34px; color: #c1f279; }
+.ov-divider { width: 1px; height: 24px; background: var(--line); margin: 0 8px; }
+.ov-channel { color: var(--muted); font-size: 16px; letter-spacing: .14em; text-transform: uppercase; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+.ov-title { text-align: center; }
+.ov-eyebrow { margin: 0; color: #c1f279; font-size: 16px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+.ov-title h1 { margin: 6px 0 0; font-size: 46px; font-weight: 500; letter-spacing: -.035em; line-height: 1.05; }
+.ov-clock { justify-self: end; display: flex; align-items: baseline; gap: 18px; color: var(--muted); font-size: 22px; }
+.ov-clock time { color: var(--ink); font-size: 40px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.flows { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: visible; }
+.flow { fill: none; stroke-width: 3; stroke-linecap: round; opacity: .9; }
+.flow.dashed { stroke-dasharray: 3 11; stroke-width: 3; opacity: .75; animation: flow-dash 1.6s linear infinite; }
+.flow-glow { fill: none; stroke-width: 14; opacity: .08; stroke-linecap: round; }
+@keyframes flow-dash { to { stroke-dashoffset: -28; } }
+.hub-core { stroke: #c1f27966; stroke-width: 2; }
+.hub-orbit { fill: none; stroke: #ffffff14; stroke-width: 6; }
+.hub-pulse { fill: none; stroke: #c1f279; stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; animation: hub-pulse 4.5s ease-out infinite; }
+.hub-pulse.delay { animation-delay: 2.25s; }
+@keyframes hub-pulse { 0% { opacity: .5; transform: scale(1); } 100% { opacity: 0; transform: scale(1.75); } }
+.hub-label { position: absolute; transform: translate(-50%, -50%); width: 236px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; pointer-events: none; }
+.hub-label svg { width: 44px; height: 44px; color: #c1f279; filter: drop-shadow(0 0 12px #c1f27980); }
+.hub-label strong { font-size: 27px; letter-spacing: .12em; font-weight: 700; }
+.hub-label span { color: var(--muted); font-size: 16px; letter-spacing: .06em; }
+
+.lane-head { position: absolute; display: flex; align-items: baseline; gap: 11px; white-space: nowrap; font-size: 18px; color: var(--muted); }
+.lane-inbound .lane-head { left: 36px; top: 140px; width: 500px; }
+.lane-outbound .lane-head { right: 36px; top: 140px; justify-content: flex-end; }
+.lane-subscriptions .lane-head { left: 598px; top: 140px; width: 724px; justify-content: center; }
+.lane-manufacturing .lane-head { left: 598px; top: 922px; width: 724px; justify-content: center; }
+.lane-verb { color: var(--bg); background: var(--c); border-radius: 30px; padding: 3px 13px; font-size: 17px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; align-self: center; }
+.lane-name { color: var(--ink); font-size: 22px; font-weight: 600; }
+.lane-counts b { color: var(--c); font-size: 22px; font-weight: 600; }
+.lane-page { margin-left: auto; font-size: 16px; border: 1px solid var(--line); border-radius: 20px; padding: 2px 11px; }
+.lane-subscriptions .lane-page, .lane-manufacturing .lane-page { margin-left: 6px; }
+.lane-stale { color: #ffd18b; border: 1px solid #ffd18b88; border-radius: 20px; padding: 1px 10px; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; }
+
+.card { position: absolute; display: flex; flex-direction: column; justify-content: center; gap: 5px; padding: 12px 18px; background: linear-gradient(120deg, #22394599, #15262fcc); border: 1px solid var(--line); border-left: 5px solid var(--c); border-radius: 16px; overflow: hidden; animation: card-in .7s cubic-bezier(.2, .8, .2, 1) both; backdrop-filter: blur(4px); }
+.card.due, .card.next { border-left-style: dashed; background: linear-gradient(120deg, #1a2d3799, #111f27cc); }
+.card.late { border-left-color: var(--bad); }
+.card.late .chip { background: #ff939426; color: var(--bad); }
+.card-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.chip { font-size: 15px; font-weight: 600; letter-spacing: .04em; color: var(--c); background: color-mix(in srgb, var(--c) 16%, transparent); border-radius: 20px; padding: 2px 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card time { color: var(--muted); font-size: 17px; white-space: nowrap; }
+.card-title { font-size: 25px; font-weight: 500; line-height: 1.12; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-sub { font-size: 17px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lane-subscriptions .card, .lane-manufacturing .card { padding: 12px 15px; }
+.lane-subscriptions .card-title, .lane-manufacturing .card-title { font-size: 21px; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.lane-subscriptions .card-top time, .lane-manufacturing .card-top time { font-size: 15px; }
+.lane-subscriptions .chip, .lane-manufacturing .chip { font-size: 13px; }
+.lane-subscriptions .card-sub, .lane-manufacturing .card-sub { font-size: 15px; }
+.card-empty { border-left-style: solid; opacity: .8; text-align: left; }
+.card-empty strong { font-size: 21px; font-weight: 500; }
+.card-empty span { font-size: 16px; color: var(--muted); }
+@keyframes card-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+.kpis { position: absolute; left: 36px; right: 36px; top: 966px; height: 74px; display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; }
+.kpi { border-top: 3px solid var(--c); background: #ffffff07; border-radius: 0 0 12px 12px; padding: 6px 14px; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 12px; align-items: baseline; }
+.kpi span { grid-column: 1 / -1; font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+.kpi b { font-size: 34px; font-weight: 600; line-height: 1.05; color: var(--c); font-variant-numeric: tabular-nums; }
+.kpi small { font-size: 14px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ov-foot { position: absolute; left: 36px; right: 36px; bottom: 8px; height: 28px; display: flex; align-items: center; justify-content: space-between; gap: 30px; font-size: 15px; color: var(--muted); }
+.legend { display: flex; align-items: center; gap: 10px; }
+.legend i { display: inline-block; width: 38px; height: 0; border-top: 3px solid #c1f279; }
+.legend i.dashed { border-top-style: dotted; margin-left: 14px; }
+.arrow-note { margin-left: 14px; opacity: .8; }
+.ov-status { color: #87dab4; font-weight: 600; }
+.ov-status.stale { color: #ffd18b; }
+
+@media (prefers-reduced-motion: reduce) { .flow.dashed, .hub-pulse, .card { animation: none; } }
+
+/* The TVs are low-power Fire TV sticks: no looping decoration. */
+.flow.dashed,.hub-pulse{animation:none}

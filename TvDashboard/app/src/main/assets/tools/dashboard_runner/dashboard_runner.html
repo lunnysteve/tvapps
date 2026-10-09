@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=1920, user-scalable=no, initial-scale=1.0"><meta name="robots" content="noindex,nofollow"><title>Architainment · Office displays</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#081117;color:#f1f5ef;font-family:'Segoe UI',Arial,sans-serif}
+#iframe-wrapper{position:absolute;inset:0}iframe{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .65s ease;pointer-events:none}iframe.active{opacity:1;z-index:1}
+#error-msg{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);max-width:85%;border:1px solid #ffd18b66;border-radius:10px;padding:8px 18px;background:#081117ed;color:#ffd18b;font-size:16px;z-index:3}
+#transition-light{position:fixed;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,transparent,#c1f279,#94d8f2,transparent);z-index:2;transform:scaleX(0);transition:transform .7s ease;pointer-events:none}body.changing #transition-light{transform:scaleX(1)}
+@media(prefers-reduced-motion:reduce){iframe,#transition-light{transition:none}}
+</style><script src="schedule.js" defer></script><script src="runner.js" defer></script></head>
+<body><div id="iframe-wrapper"><iframe id="kiosk-frame" class="active" title="Office dashboard" src="about:blank"></iframe></div><div id="error-msg" role="status" hidden></div><div id="transition-light"></div></body></html>

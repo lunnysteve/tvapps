@@ -1,0 +1,63 @@
+/* A photography-led case-study screen for unattended office displays. */
+body[data-dashboard="projects"] .studio {
+  height: 100vh;
+  min-height: 0;
+  padding: 18px 22px 12px;
+  gap: 14px;
+  background: #091216;
+}
+body[data-dashboard="projects"] #content { min-height: 0; }
+body[data-dashboard="projects"] .case {
+  grid-template-columns: minmax(0, 2.15fr) minmax(0, 1fr);
+  gap: 22px;
+}
+body[data-dashboard="projects"] .case-media {
+  border: 0;
+  border-radius: 8px;
+}
+body[data-dashboard="projects"] .case-media:after {
+  background: linear-gradient(180deg, #0006, transparent 15%);
+}
+body[data-dashboard="projects"] .case-photo {
+  transform: none;
+  transition: opacity 1.2s ease;
+}
+body[data-dashboard="projects"] .case-media-top { padding: 20px; }
+body[data-dashboard="projects"] .case-read { gap: 18px; }
+.case-story-heading { padding: 8px 2px 0; }
+.case-story-heading .case-meta { margin-bottom: 12px; font-size: clamp(12px, 1vw, 18px); }
+.case-story-heading h2 {
+  font-size: clamp(28px, 2.15vw, 44px);
+  line-height: 1.12;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+body[data-dashboard="projects"] .case-specs {
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  gap: 14px 20px;
+}
+body[data-dashboard="projects"] .case-specs div { padding: 0; background: transparent; }
+body[data-dashboard="projects"] .case-specs dt { font-size: clamp(11px, .75vw, 15px); }
+body[data-dashboard="projects"] .case-specs dd { font-size: clamp(16px, 1.1vw, 22px); }
+body[data-dashboard="projects"] .case-scroll {
+  border-radius: 0;
+  border: 0;
+  border-top: 1px solid #ffffff20;
+  background: transparent;
+  mask-image: linear-gradient(180deg, transparent, #000 4%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 4%, #000 94%, transparent);
+}
+body[data-dashboard="projects"] .case-text {
+  padding: 22px 2px 30vh;
+  font-size: clamp(18px, 1.25vw, 25px);
+  line-height: 1.55;
+}
+body[data-dashboard="projects"] .foot { font-size: 11px; }
+body[data-dashboard="projects"] .case-progress-label { min-width: 0; }
+@media (max-height: 800px) {
+  body[data-dashboard="projects"] .studio { padding: 12px 18px 8px; gap: 10px; }
+  body[data-dashboard="projects"] .case-read { gap: 12px; }
+  .case-story-heading .case-meta { margin-bottom: 8px; }
+}
