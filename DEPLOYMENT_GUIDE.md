@@ -125,3 +125,35 @@ To access the admin screen when you are away from the office LAN:
 | **Fast Forward / Right** | Skip to next dashboard |
 | **Rewind / Left** | Go back to previous dashboard |
 | **Back (Double-press)** | Exit application |
+
+---
+
+## 8. Updating the App via GitHub
+
+The app now includes full **GitHub in-app self-updating**:
+
+### How It Works:
+1. **Automatic Startup Check**:
+   - 3 seconds after the app boots, it queries the GitHub Releases API (`https://api.github.com/repos/lunnysteve/tvapps/releases/latest`).
+   - If a newer version tag exists (e.g. `v1.2` when installed is `v1.1`), an on-screen HUD alert appears:
+     `Update available: v1.2! Press Menu to install`
+2. **Manual Check from Remote**:
+   - Press the **Menu** button on the Fire TV remote to open **Display Settings**.
+   - Click **Check for GitHub Updates**.
+   - If an update is found, click **Download & Install Update**.
+   - The app streams the APK, tracks download percentage in real-time, and automatically invokes Android's system package installer via `FileProvider`.
+   - On the Fire TV prompt, select **Update** using the remote. The app updates and restarts with all screen assignments (`tv1`, `tv2`, `tv3`) preserved.
+
+### Publishing a New Release:
+Whenever you commit changes and want to deploy a new version to all 3 TVs:
+```powershell
+# 1. Commit changes
+git add .
+git commit -m "Your update description"
+
+# 2. Tag a new version and push
+git tag v1.2
+git push origin main --tags
+```
+The automated GitHub Actions workflow (`.github/workflows/release.yml`) will build the APK and attach `ArchitainmentDashboards-FireStick.apk` to the GitHub release automatically.
+

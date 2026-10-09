@@ -113,3 +113,11 @@ Since the project already uses Cloudflare (`wrangler.jsonc`), a Cloudflare Tunne
   - Uses two WebViews (`webViewA` and `webViewB`) to preload the next page in the background and smoothly cross-fade over 800ms, eliminating white flashes between dashboards.
 * **WebView Process Auto-Recovery**:
   - Implements `onRenderProcessGone()` on both WebViews to automatically recreate and reload without crashing if the Android system runs low on memory.
+* **Dashboard Runner Script Routing (v1.1)**:
+  - Fixed issue where accessing `/?screen=tvX` loaded `dashboard_runner.html` at the root path, causing relative scripts `schedule.js` and `runner.js` to 404. Now routes directly to `/tools/dashboard_runner/dashboard_runner.html?screen=tvX` with a 302 fallback redirect and script resolution fallback on `server.py`.
+* **1080p TV Display Scaling & Over-Zoom Prevention (v1.1)**:
+  - Fire OS devices report high density (320dpi/2x), which previously caused WebViews to treat 1080p as 960x540 and blow up dashboard elements by 200%. Now locks `textZoom = 100`, sets `useWideViewPort = true`, and dynamically enforces `width=1920, user-scalable=no, initial-scale=1.0` on both top-level documents and embedded runner iframes.
+* **GitHub In-App Self-Updating & CI/CD Workflow (v1.1)**:
+  - Added `GitHubUpdateManager` with `FileProvider` and `REQUEST_INSTALL_PACKAGES` to automatically check GitHub Releases (`lunnysteve/tvapps`), display on-screen notifications, download updates in the background, and seamlessly launch the Android package installer.
+  - Added `.github/workflows/release.yml` to automatically build and publish release APKs on Git tag pushes.
+
