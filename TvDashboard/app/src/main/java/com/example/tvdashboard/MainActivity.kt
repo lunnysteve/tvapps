@@ -1,7 +1,10 @@
 package com.example.tvdashboard
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
@@ -52,10 +55,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var txtUpdateStatus: TextView
     private lateinit var btnCheckUpdate: Button
     private lateinit var btnInstallUpdate: Button
+    private lateinit var btnSetToken: Button
     private var availableUpdate: ReleaseInfo? = null
 
     private lateinit var prefs: SharedPreferences
     private var wakeLock: PowerManager.WakeLock? = null
+    private var configReceiver: android.content.BroadcastReceiver? = null
 
     private var activeWebView: WebView? = null
     private var preloadWebView: WebView? = null
@@ -113,6 +118,7 @@ class MainActivity : AppCompatActivity() {
 
         initViews()
         setupWebViews()
+        setupConfigReceiver()
 
         // 2. Load active TV dashboard / runner
         loadInitialDashboard()
@@ -124,6 +130,13 @@ class MainActivity : AppCompatActivity() {
         rotationHandler.postDelayed({
             triggerCheckForUpdates(manual = false)
         }, 3000L)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        configReceiver?.let {
+            try { unregisterReceiver(it) } catch (_: Exception) {}
+        }
     }
 
     override fun onResume() {
@@ -216,6 +229,7 @@ class MainActivity : AppCompatActivity() {
         txtUpdateStatus = findViewById(R.id.txtUpdateStatus)
         btnCheckUpdate = findViewById(R.id.btnCheckUpdate)
         btnInstallUpdate = findViewById(R.id.btnInstallUpdate)
+        btnSetToken = findViewById(R.id.btnSetToken)
 
         val owner = prefs.getString(DashboardConfig.KEY_GITHUB_OWNER, DashboardConfig.DEFAULT_GITHUB_OWNER) ?: DashboardConfig.DEFAULT_GITHUB_OWNER
         val repo = prefs.getString(DashboardConfig.KEY_GITHUB_REPO, DashboardConfig.DEFAULT_GITHUB_REPO) ?: DashboardConfig.DEFAULT_GITHUB_REPO
@@ -223,6 +237,10 @@ class MainActivity : AppCompatActivity() {
 
         btnCheckUpdate.setOnClickListener {
             triggerCheckForUpdates(manual = true)
+        }
+
+        btnSetToken.setOnClickListener {
+            showTokenDialog()
         }
 
         btnInstallUpdate.setOnClickListener {
@@ -608,6 +626,9 @@ class MainActivity : AppCompatActivity() {
         val owner = prefs.getString(DashboardConfig.KEY_GITHUB_OWNER, DashboardConfig.DEFAULT_GITHUB_OWNER) ?: DashboardConfig.DEFAULT_GITHUB_OWNER
         val repo = prefs.getString(DashboardConfig.KEY_GITHUB_REPO, DashboardConfig.DEFAULT_GITHUB_REPO) ?: DashboardConfig.DEFAULT_GITHUB_REPO
         txtAppVersion.text = "App Version: v${BuildConfig.VERSION_NAME} (Build ${BuildConfig.VERSION_CODE}) · GitHub: $owner/$repo"
+
+        val hasToken = !prefs.getString(DashboardConfig.KEY_GITHUB_TOKEN, null).isNullOrBlank()
+        btnSetToken.text = if (hasToken) "GitHub Token: Configured ✓ (Tap to edit)" else "Configure GitHub Token (Private Repo)"
     }
 
     private fun inject1080pViewport(view: WebView?) {
@@ -690,6 +711,60 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         )
+    }
+
+    private fun showTokenDialog() {
+        val currentToken = prefs.getString(DashboardConfig.KEY_GITHUB_TOKEN, "") ?: ""
+        val input = android.widget.EditText(this).apply {
+            setText(currentToken)
+            hint = "Paste GitHub Personal Access Token (classic or fine-grained)"
+            setSingleLine(true)
+        }
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("GitHub Token (Private Repo)")
+            .setMessage("Enter a GitHub Personal Access Token with 'repo' scope to check updates for private repository (or leave blank):")
+            .setView(input)
+            .setPositiveButton("Save") { _, _ ->
+                val token = input.text.toString().trim()
+                prefs.edit().putString(DashboardConfig.KEY_GITHUB_TOKEN, token.ifEmpty { null }).apply()
+                showHud(if (token.isEmpty()) "Token cleared" else "GitHub token saved!", 2500)
+                updateSettingsUI()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun setupConfigReceiver() {
+        configReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                val editor = prefs.edit()
+                intent.getStringExtra("token")?.let { editor.putString(DashboardConfig.KEY_GITHUB_TOKEN, it) }
+                intent.getStringExtra("github_token")?.let { editor.putString(DashboardConfig.KEY_GITHUB_TOKEN, it) }
+                intent.getStringExtra("screen_id")?.let {
+                    editor.putString(DashboardConfig.KEY_SCREEN_ID, it)
+                    screenId = it
+                }
+                intent.getStringExtra("custom_host")?.let { editor.putString(DashboardConfig.KEY_CUSTOM_HOST, it) }
+                intent.getStringExtra("source_mode")?.let {
+                    editor.putString(DashboardConfig.KEY_SOURCE_MODE, it)
+                    sourceMode = it
+                }
+                editor.apply()
+                updateSettingsUI()
+                showHud("Settings updated via broadcast", 3000)
+                if (intent.hasExtra("reload") || intent.hasExtra("screen_id") || intent.hasExtra("source_mode")) {
+                    loadInitialDashboard()
+                }
+            }
+        }
+        val filter = android.content.IntentFilter("com.example.tvdashboard.SET_CONFIG").apply {
+            addAction("com.example.tvdashboard.SET_TOKEN")
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(configReceiver, filter, Context.RECEIVER_EXPORTED)
+        } else {
+            registerReceiver(configReceiver, filter)
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

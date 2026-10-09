@@ -189,6 +189,16 @@
                     android:focusable="true" />
 
                 <Button
+                    android:id="@+id/btnSetToken"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="6dp"
+                    android:text="Configure GitHub Token (Private Repo)"
+                    android:textColor="#CBD5E1"
+                    android:backgroundTint="#1E293B"
+                    android:focusable="true" />
+
+                <Button
                     android:id="@+id/btnInstallUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
