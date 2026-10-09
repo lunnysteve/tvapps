@@ -4,7 +4,9 @@ Hardware-accelerated TV signage app built for Amazon Fire TV Sticks and Android 
 
 ## Ready-to-Install APK
 
-* **Download**: [ArchitainmentDashboards-FireStick.apk](file:///C:/Users/slunn/Projects/tvapps/ArchitainmentDashboards-FireStick.apk) *(8.97 MB, signed release build)*
+* **Direct Shortlink (Downloader App / Browser)**: [https://tinyurl.com/y9rnajeu](https://tinyurl.com/y9rnajeu)
+* **Local File**: [ArchitainmentDashboards-FireStick.apk](file:///C:/Users/slunn/Projects/tvapps/ArchitainmentDashboards-FireStick.apk) *(8.97 MB, signed release build)*
+* **GitHub Releases**: [Latest Release (v1.2)](https://github.com/lunnysteve/tvapps/releases/latest)
 * **Project Directory**: [TvDashboard](file:///C:/Users/slunn/Projects/tvapps/TvDashboard)
 
 ---
