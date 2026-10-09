@@ -304,6 +304,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupWebViews() {
         val setupView = { wv: WebView ->
             wv.setBackgroundColor(0xFF081117.toInt())
+            wv.setInitialScale(50)
             wv.settings.apply {
                 javaScriptEnabled = true
                 domStorageEnabled = true
@@ -314,10 +315,11 @@ class MainActivity : AppCompatActivity() {
                 loadWithOverviewMode = true
                 useWideViewPort = true
                 textZoom = 100 // Prevent TV system text scaling from enlarging fonts
-                setSupportZoom(false)
+                setSupportZoom(true)
+                builtInZoomControls = false
                 displayZoomControls = false
                 cacheMode = WebSettings.LOAD_DEFAULT
-                userAgentString = "${userAgentString} ArchitainmentFireStick/1.1"
+                userAgentString = "${userAgentString} ArchitainmentFireStick/1.2"
             }
 
             wv.webChromeClient = object : WebChromeClient() {
@@ -643,9 +645,21 @@ class MainActivity : AppCompatActivity() {
                             meta.name = 'viewport';
                             (targetDoc.head || targetDoc.documentElement).appendChild(meta);
                         }
-                        meta.content = 'width=1920, user-scalable=no, initial-scale=1.0';
+                        meta.content = 'width=1920, initial-scale=0.5, minimum-scale=0.5, maximum-scale=1.0, user-scalable=no';
+                        
+                        var w = targetDoc.documentElement ? targetDoc.documentElement.clientWidth : window.innerWidth;
+                        if (w && w < 1900 && targetDoc.body) {
+                            var scale = w / 1920;
+                            if (scale < 0.99) {
+                                targetDoc.body.style.zoom = scale;
+                            }
+                        }
+
                         if (targetDoc.documentElement) {
                             targetDoc.documentElement.style.overflow = 'hidden';
+                        }
+                        if (targetDoc.body) {
+                            targetDoc.body.style.overflow = 'hidden';
                         }
                     } catch(e) {}
                 }
